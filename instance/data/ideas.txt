@@ -6,3 +6,12 @@ gastar (segun consumidor)
 Se tiende a comprar mas por web o en fisico?, frecuencia de compra
 Porcentaje de gasto segun el ingreso anual
 Como cambia el consumo con los descuentos
+App: gestor de gastos
+    -Mensual
+    -Presupuesto
+    -Gastos totales
+    -Por categorías (Salud, Ocio, Casa, Educación, Regalos, Alimentación, Transporte, Otros)
+    -Gráfico porcentual dividido por categorías y con el gasto total.
+    -Usar datos anteriores del ccv (dividir por 24)
+La app será para compilar datos que sean ingresados por los usuarios, para luego ser utilizados por el cliente(con un analisis
+    predictivo inicial desde los datos dados, para luego que el cliente haga en un futuro el suyo)
