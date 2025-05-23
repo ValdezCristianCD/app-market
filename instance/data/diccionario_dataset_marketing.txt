@@ -1,0 +1,29 @@
+# Diccionario de datos - Dataset de Campañas de Marketing
+
+| Columna               | Descripción en Español |
+|-----------------------|------------------------|
+| AcceptedCmp1          | 1 si aceptó la oferta en la 1.ª campaña, 0 si no |
+| AcceptedCmp2          | 1 si aceptó la oferta en la 2.ª campaña, 0 si no |
+| AcceptedCmp3          | 1 si aceptó la oferta en la 3.ª campaña, 0 si no |
+| AcceptedCmp4          | 1 si aceptó la oferta en la 4.ª campaña, 0 si no |
+| AcceptedCmp5          | 1 si aceptó la oferta en la 5.ª campaña, 0 si no |
+| Response (target)     | 1 si aceptó la oferta en la última campaña, 0 si no |
+| Complain              | 1 si se quejó en los últimos 2 años, 0 si no |
+| DtCustomer            | Fecha en que el cliente se unió a la empresa |
+| Education             | Nivel educativo del cliente |
+| Marital               | Estado civil del cliente |
+| Kidhome               | Número de hijos pequeños en el hogar |
+| Teenhome              | Número de adolescentes en el hogar |
+| Income                | Ingreso anual del hogar |
+| MntFishProducts       | Gasto en productos de pescado (últimos 2 años) |
+| MntMeatProducts       | Gasto en productos de carne (últimos 2 años) |
+| MntFruits             | Gasto en frutas (últimos 2 años) |
+| MntSweetProducts      | Gasto en dulces (últimos 2 años) |
+| MntWines              | Gasto en vinos (últimos 2 años) |
+| MntGoldProds          | Gasto en productos de oro (últimos 2 años) |
+| NumDealsPurchases     | Compras realizadas con descuento |
+| NumCatalogPurchases   | Compras hechas por catálogo |
+| NumStorePurchases     | Compras hechas en tiendas físicas |
+| NumWebPurchases       | Compras realizadas en el sitio web |
+| NumWebVisitsMonth     | Visitas al sitio web en el último mes |
+| Recency               | Días desde la última compra |

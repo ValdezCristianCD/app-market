@@ -1,0 +1,8 @@
+Pagina en donde se pueda visualizar la informacion media de un usuario
+Porcentaje de compras realizadas con descuentos, por catalogos
+Comparacion entre compras hechas en tiendas fisicas y tiendas virtuales
+Analisis// en que suele gastar mas la gente, en que menos, que se suele priorizar segun el tipo de consumidor, en que tiende a 
+gastar (segun consumidor) 
+Se tiende a comprar mas por web o en fisico?, frecuencia de compra
+Porcentaje de gasto segun el ingreso anual
+Como cambia el consumo con los descuentos
