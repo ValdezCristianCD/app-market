@@ -2,6 +2,17 @@
 
 {% block title %} Landing {% endblock title%}
 
-{% block body %} 
-    <h1>Welcome</h1>
+{% block body %}
+    <header class="header-landing">
+        <div class="logo-container">
+            <img src="#" alt="" class="logo-img">
+        </div>
+        {% include "components/navbar.html" %}
+    </header>
+    <main class="main-header">
+        <h1>Welcome</h1>
+    </main>
+    <footer class="footer-landing">
+        Todos los derechos reservados
+    </footer>
 {% endblock body%}
