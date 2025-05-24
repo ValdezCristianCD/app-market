@@ -8,7 +8,23 @@ def index():
 
 @app.route('/landing')
 def landing():
-    return render_template('pages/landing.html')
+
+    app_config = {
+        'app_name' : 'App Market'
+    }
+
+    links = {
+        'LANDING' : '/landing',
+        'TEST' : '/test'
+    }
+
+    page_vars = {
+        **app_config,
+        'nav_links' : links,
+        'app_section' : 'Landing' 
+    }
+
+    return render_template('pages/landing.html',**page_vars)
 
 if __name__ == '__main__':
     app.run(debug=True)

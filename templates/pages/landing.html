@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} Landing {% endblock title%}
+{% block title %} {{ app_section }} - {{ app_name }} {% endblock title%}
 
 {% block body %}
     <header class="header-landing">
@@ -10,7 +10,7 @@
         {% include "components/navbar.html" %}
     </header>
     <main class="main-header">
-        <h1>Welcome</h1>
+        <h1>Welcome to app-market</h1>
     </main>
     <footer class="footer-landing">
         Todos los derechos reservados

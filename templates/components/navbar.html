@@ -1,5 +1,7 @@
 <nav class="navbar">
-    <a href="/landing" class="navbar-link">
-        Landing
-    </a>
+    {% for label, link in nav_links.items() %}
+        <a href="{{ link }}" class="navbar-link">
+            {{ label }}
+        </a>
+    {% endfor %}
 </nav>
