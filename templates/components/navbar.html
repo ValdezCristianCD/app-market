@@ -5,3 +5,24 @@
         </a>
     {% endfor %}
 </nav>
+
+<button type="button" class="show-btn-navbar" id="shownav">
+    <i class="material-symbols-outlined">
+        menu
+    </i>
+</button>
+
+<nav class="r-navbar">
+    <button type="button" class="hide-btn-navbar" id="hidenav">
+        <i class="material-symbols-outlined">
+            arrow_forward
+        </i>
+    </button>
+    <div class="r-navbar-links">
+        {% for label, link in nav_links.items() %}
+            <a href="{{ link }}" class="r-navbar-link">
+                {{ label }}
+            </a>
+        {% endfor %}
+    </div>
+</nav>

@@ -1,0 +1,70 @@
+.d-flex {
+    display: flex!important;
+}
+.d-none {
+    display: none!important;
+}
+
+.show-btn-navbar {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 60px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.hide-btn-navbar {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: start;
+    padding-left: 1rem;
+}
+
+.r-navbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 0px;
+    display: grid;
+    grid-template-rows: 10% 1fr;
+    background: white;
+    transition: all 0.2s ease-in-out;
+}
+
+.r-navbar-links {
+    display: flex;
+    flex-direction: column;
+}
+
+a.r-navbar-link {
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    padding-left: 1rem;
+    text-decoration: none;
+    color: #242424;
+    font-size: 1em;
+    transition: all 0.2s ease-in-out;
+}
+
+a.r-navbar-link:hover {
+    background-color: rgb(206, 206, 206);
+}
+
+.deploid {
+    width: 180px;
+}
+
+@media screen and (max-width: 900px) {
+    nav.navbar {
+        display: none;
+    }
+    .show-btn-navbar{
+        display: flex;
+    }
+}
