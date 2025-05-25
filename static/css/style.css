@@ -20,11 +20,32 @@ body {
     grid-template-rows: 70px auto 30px;
 }
 
+footer {
+    width: 100%;
+    background: #222222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9em;
+    color: #eeeeee;
+}
 header.header-landing {
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 0rem 1rem;
+    background: var(--bg-color-navbar);
+}
+
+span.header-app-name {
+    height: 100%;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.2em;
+    letter-spacing: 0.1rem;
 }
 
 .logo-container {
@@ -44,8 +65,9 @@ header.header-landing {
 a.navbar-link {
     text-decoration: none;
     color: #242424;
-    font-size: 0.8em;
+    font-size: 0.9em;
     position: relative;
+    color: white;
 }
 
 a.navbar-link::after {
@@ -55,10 +77,49 @@ a.navbar-link::after {
     left: -5%;
     height: 1px;
     width: 0%;
-    background-color: #242424;
+    background-color: white;
     transition: all 0.2s ease-in-out;
 }
 
 a.navbar-link:hover::after {
     width: 110%;
+}
+
+main.main-landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.main-section-desc {
+    height: 30rem;
+    width: 90%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    margin: auto;
+    border-radius: 0.6rem;
+    box-shadow: 3px 3px 11px #d1d1d1;
+}
+
+.desc-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding-right: 1rem;
+}
+
+h1.desc-title {
+    font-size: 1.6em;
+    color: #004ae9;
+    font-weight: 700;
+}
+
+img.landing-main-logo {
+    width: 75%;
+    margin: auto;
 }

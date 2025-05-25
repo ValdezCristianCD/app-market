@@ -4,16 +4,29 @@
 
 {% block body %}
     <header class="header-landing">
-        <div class="logo-container">
+        <!-- <div class="logo-container">
             <img src="#" alt="" class="logo-img">
-        </div>
+        </div> -->
+        <span class="header-app-name">
+            {{ app_name.upper() }}
+        </span>
         {% include "components/navbar.html" %}
     </header>
-    <main class="main-header">
-        <h1>Welcome to app-market</h1>
+    <main class="main-landing">
+        <section class="main-section-desc">
+            <img src="{{ url_for('static', filename='img/landing_logo.svg') }}" alt="" class="landing-main-logo">
+            <div class="desc-container">
+                <h1 class="desc-title">
+                    EMPIEZA A GESTIONAR TUS GASTOS CON {{ app_name.upper() }}!
+                </h1>
+                <span class="desc-content">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, illo, velit quaerat at eius enim, eum accusantium consequuntur tenetur inventore quis doloremque recusandae! Vero provident molestias pariatur voluptates! Fugit, delectus.
+                </span>
+            </div>
+        </section>
     </main>
     <footer class="footer-landing">
-        Todos los derechos reservados
+        &copy; 2025 ACME. Todos los derechos reservados.
     </footer>
 
     <script src="{{ url_for('static', filename='js/actions.js') }}"></script>

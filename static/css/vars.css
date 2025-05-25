@@ -1,3 +1,8 @@
 :root {
-    --bgc-nav: #964368
+    --dark-blue: #023E8A;
+    --blue: #0077B6;
+    --skyblue: #00B4D8;
+    --light-skyblue: #daf9ff;
+
+    --bg-color-navbar:var(--dark-blue);
 }

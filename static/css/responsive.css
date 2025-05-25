@@ -13,6 +13,7 @@
     width: 60px;
     background: transparent;
     border: none;
+    color: white;
     cursor: pointer;
 }
 
@@ -22,6 +23,7 @@
     cursor: pointer;
     text-align: start;
     padding-left: 1rem;
+    color: white;
 }
 
 .r-navbar {
@@ -32,7 +34,8 @@
     width: 0px;
     display: grid;
     grid-template-rows: 10% 1fr;
-    background: white;
+    overflow: hidden;
+    background: var(--bg-color-navbar);
     transition: all 0.2s ease-in-out;
 }
 
@@ -47,13 +50,14 @@ a.r-navbar-link {
     width: 100%;
     padding-left: 1rem;
     text-decoration: none;
-    color: #242424;
-    font-size: 1em;
+    color: #eaeaea;
+    font-size: 0.9em;
     transition: all 0.2s ease-in-out;
 }
 
 a.r-navbar-link:hover {
-    background-color: rgb(206, 206, 206);
+    color: blue;
+    background-color: #eaeaea;
 }
 
 .deploid {
@@ -67,4 +71,36 @@ a.r-navbar-link:hover {
     .show-btn-navbar{
         display: flex;
     }
+
+    section.main-section-desc {
+        height: 32rem;
+        width: 92%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 60% 40%;
+        margin: 2rem 0rem;
+    }
+
+    img.landing-main-logo {
+        height: 90%;
+    }
+
+    div.desc-container {
+        padding: 0rem 1rem 0rem 1rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    section.main-section-desc {
+        height: 38rem;
+        width: 90%;
+        margin: 0;
+        box-shadow: none;
+        
+        div.desc-container {
+            padding: 0rem;
+        }
+    }
+    
+
 }
