@@ -6,9 +6,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>
-        {% block title %}
-            <!-- Contenido del title de las templates hijas -->
-        {% endblock title %}
+        {{ app_section }} - {{ app_name }}
     </title>
 </head>
 <body>
