@@ -123,3 +123,26 @@ img.landing-main-logo {
     width: 75%;
     margin: auto;
 }
+
+form.form-upload-file {
+    height: 60%;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background: #f9f9f9;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 10px #b9b9b9;
+}
+
+section.main-section-upfile {
+    height: 100%;
+    width: 60%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
