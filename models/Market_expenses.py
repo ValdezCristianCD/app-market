@@ -33,20 +33,38 @@ class Market_expenses(db.Model):
 
     def create_comparation_chart(cls, item1, item2):
 
-        values_item1 = []
-        values_item2 = []
+        column_1 = cls.get_column_name_by_item_selected(item1)
+        column_2 = cls.get_column_name_by_item_selected(item2)
+
+        values_column_1 = []
+        values_column_2 = []
 
         data = cls.query.all()
         for row in data[:50]:
-            values_item1.append(getattr(row, item1))
-            values_item2.append(getattr(row, item2))
+            values_column_1.append(getattr(row, column_1))
+            values_column_2.append(getattr(row, column_2))
 
         plt.figure(figsize=(8,6))
 
-        plt.plot(values_item1, label=item1)
-        plt.plot(values_item2, label=item2)
+        plt.plot(values_column_1, label=item1)
+        plt.plot(values_column_2, label=item2)
 
-        plt.title('Other')
-        plt.legend(loc='lower left')
+        plt.title('Comparacion de Gastos Entre 2 Areas')
+        plt.legend(loc='upper left')
+        plt.ylabel("Gastos en Dolares")
+        plt.xlabel("Ultimos 50 Gastos") 
         plt.savefig('./static/img/charts/mtn_prods_chart.png')
         plt.close()
+
+    def get_column_name_by_item_selected(item):
+
+        switch = {
+            'Pescado': 'MntFishProducts',
+            'Carne': 'MntMeatProducts',
+            'Frutas': 'MntFruits',
+            'Dulces': 'MntSweetProducts',
+            'Vinos': 'MntWines',
+            'Oro': 'MntGoldProds',
+        }
+
+        return switch.get(item, None)

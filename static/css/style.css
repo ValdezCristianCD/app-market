@@ -136,6 +136,26 @@ form.form-upload-file {
     background: #f9f9f9;
     border-radius: 1rem;
     box-shadow: 5px 5px 10px #b9b9b9;
+
+    label.upload-label {
+        font-size: 1.6em;
+        font-weight: 500;
+        color: #023e8a;
+    }
+    input.csv-input {
+        width: 60%;
+        background: #115dbe;
+        padding: 1rem 0.8rem;
+        border-radius: 0.5rem;
+        color: white;
+    }
+    button.btn-upload-csv {
+        height: 3em;
+        width: 60%;
+        background: #023e8a;
+        color: white;
+        border-radius: 0.3rem;
+    }
 }
 
 section.main-section-upfile {
@@ -145,4 +165,59 @@ section.main-section-upfile {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+main.main-market {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+
+    .main-section-desc {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    img.landing-main-logo {
+        height: 100%;
+        width: 65%;
+        margin: 0;
+        object-fit: contain;
+    }
+    .form-container {
+        height: 100%;
+    }
+    form.form-values {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+
+        label.form-select-label {
+            height: 2em;
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #023e8a;
+        }
+        select.form-select {
+            height: 2.3em;
+            width: 100%;
+            border: 1px solid #8080807d;
+            border-radius: 0.3rem;
+            cursor: pointer;
+        }
+        button.btn-compare {
+            height: 2.3em;
+            width: 100%;
+            background: #023e8a;
+            color: white;
+            font-size: 0.8em;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+    }
 }

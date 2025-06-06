@@ -10,17 +10,17 @@
         </span>
         {% include "components/navbar.html" %}
     </header>
-    <main class="main-landing">
-        
+    <main class="main-market">
         <section class="main-section-desc">
             <img src="{{ url_for('static', filename='img/charts/mtn_prods_chart.png') }}" alt="" class="landing-main-logo">
-            <div class="desc-container">
-                <h1 class="desc-title">
-                    EMPIEZA A GESTIONAR TUS GASTOS CON {{ app_name.upper() }}!
-                </h1>
-                <span class="desc-content">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, illo, velit quaerat at eius enim, eum accusantium consequuntur tenetur inventore quis doloremque recusandae! Vero provident molestias pariatur voluptates! Fugit, delectus.
-                </span>
+            <div class="form-container">
+                <form action="/market" method="GET" class="form-values">
+                    {% for value_id, select_options in select_values.items() %}
+                        {% include "./components/selects.html" %}
+                    {% endfor %}
+                    <button type="submit" class="btn-compare">Comparar</button>
+
+                </form>
             </div>
         </section>
     </main>

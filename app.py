@@ -53,6 +53,9 @@ def loadData():
 @app.route('/market')
 def market():
 
+    item1 = request.args.get('v1', 'Carne')
+    item2 = request.args.get('v2', 'Pescado')
+
     links = {
         'LANDING' : '/landing',
         'CARGAR DATA' : '/loadData',
@@ -72,7 +75,23 @@ def market():
     else:
         print("Modelo ya populado.")
 
-    Market_expenses.create_comparation_chart(Market_expenses,'MntMeatProducts','MntFruits')
+
+    options = ['Pescado','Carne','Frutas','Dulces','Vinos','Oro']
+    page_vars = {
+        **page_vars,
+        'select_values' : {
+            'v1' : {
+                'options': options,
+                'option_selected' : item1,
+            },
+            'v2' : {
+                'options': options,
+                'option_selected' : item2,
+            },
+        },
+    }
+    
+    Market_expenses.create_comparation_chart(Market_expenses, item1, item2)
     
     print(page_vars)
 

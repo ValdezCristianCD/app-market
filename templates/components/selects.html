@@ -1,0 +1,10 @@
+<label for="{{ value_id }}" class="form-select-label">Elige las areas a comparar:</label>
+<select id="{{ value_id }}" name="{{ value_id }}" class="form-select">
+    {% for option in select_options.options %}
+        {% if select_options.option_selected == option %}
+            <option value="{{ option }}" selected>{{ option }}</option>
+        {% else %}
+            <option value="{{ option }}">{{ option }}</option>
+        {% endif %}
+    {% endfor %}
+</select>
