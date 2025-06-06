@@ -1,17 +1,13 @@
-from flask import Flask, redirect, url_for, render_template, request
-from instance.loader_csv import load_csv
-from sqlalchemy import create_engine
-import os
+from flask import redirect, url_for, render_template, request
+from models.Market_expenses import Market_expenses
+from create_app import create_app, db
 
-app = Flask(__name__)
+app = create_app()
 
-# Asegurar que la carpeta 'instance' exista
-os.makedirs(app.instance_path, exist_ok=True)
-
-# Ruta absoluta a la base de datos dentro de /instance
-db_path = os.path.join(app.instance_path, 'ifood.db')
-engine = create_engine(f'sqlite:///{db_path}')
-
+# IMPORTAR LOS MODELOS **después** de crear app, pero **antes** de create_all
+with app.app_context():
+    from models.Market_expenses import Market_expenses
+    db.create_all()
 
 app_config = {
     'app_name' : 'App Market'
@@ -26,7 +22,8 @@ def landing():
 
     links = {
         'LANDING' : '/landing',
-        'CARGAR DATA' : '/loadData'
+        'CARGAR DATA' : '/loadData',
+        'MERCADO' : '/market',
     }
 
     page_vars = {
@@ -53,16 +50,40 @@ def loadData():
 
     return render_template('pages/load_csv.html',**page_vars)
 
+@app.route('/market')
+def market():
+
+    links = {
+        'LANDING' : '/landing',
+        'CARGAR DATA' : '/loadData',
+        'MERCADO' : '/market',
+    }
+
+    page_vars = {
+        **app_config,
+        'nav_links' : links,
+        'app_section' : 'Mercado Actual' 
+    }
+
+    # Solo poblar la base de datos si está vacía
+    if Market_expenses.query.count() == 0:
+        Market_expenses.population_market_expenses()
+        print("Datos cargados.")
+    else:
+        print("Modelo ya populado.")
+
+    Market_expenses.create_comparation_chart(Market_expenses,'MntMeatProducts','MntFruits')
+    
+    print(page_vars)
+
+    return render_template('pages/market.html',**page_vars)
+
 
 @app.route('/upload', methods=['POST'])
 def uploadData():
     file = request.files['csv_file']
     if not file.filename.endswith('.csv'):
         return "Archivo inválido", 400
-
-    df = load_csv(engine, file)
-
-    print(df)
 
     return redirect('/')
 
