@@ -28,14 +28,7 @@ class Market_expenses(db.Model):
                 MntGoldProds = int(row['MntGoldProds'])* 10,
             )
             db.session.add(entry)
-
-        columns_to_scale = [
-            'MntMeatProducts', 'MntFruits', 'MntFishProducts',
-            'MntSweetProducts', 'MntWines', 'MntGoldProds'
-        ]
-
         db.session.commit()
-        print("Base de datos populada con éxito usando Polars.")
 
     @classmethod
     def create_comparation_chart(cls, item1, item2):
