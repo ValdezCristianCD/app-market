@@ -7,3 +7,10 @@ shownav.addEventListener('click', () =>{
 hidenav.addEventListener('click', () =>{
     navbar.classList.toggle('deploid')
 })
+
+window.addEventListener("load", function () {
+    const spinner = document.getElementById("loading-spinner");
+    if (spinner) {
+    spinner.style.display = "none";
+    }
+});

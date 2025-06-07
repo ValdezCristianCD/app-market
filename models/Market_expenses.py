@@ -15,32 +15,38 @@ class Market_expenses(db.Model):
 
     @classmethod
     def population_market_expenses(cls):
+
         df = pl.read_csv('./instance/data/ifood_df.csv')
 
         for row in df.iter_rows(named=True):
             entry = cls(
-                MntMeatProducts = int(row['MntMeatProducts']),
-                MntFruits = int(row['MntFruits']),
-                MntFishProducts = int(row['MntFishProducts']),
-                MntSweetProducts = int(row['MntSweetProducts']),
-                MntWines = int(row['MntWines']),
-                MntGoldProds = int(row['MntGoldProds'])
+                MntMeatProducts = int(row['MntMeatProducts'])* 10,
+                MntFruits = int(row['MntFruits'])* 10,
+                MntFishProducts = int(row['MntFishProducts'])* 10,
+                MntSweetProducts = int(row['MntSweetProducts'])* 10,
+                MntWines = int(row['MntWines'])* 10,
+                MntGoldProds = int(row['MntGoldProds'])* 10,
             )
             db.session.add(entry)
+
+        columns_to_scale = [
+            'MntMeatProducts', 'MntFruits', 'MntFishProducts',
+            'MntSweetProducts', 'MntWines', 'MntGoldProds'
+        ]
 
         db.session.commit()
         print("Base de datos populada con éxito usando Polars.")
 
+    @classmethod
     def create_comparation_chart(cls, item1, item2):
-
         column_1 = cls.get_column_name_by_item_selected(item1)
         column_2 = cls.get_column_name_by_item_selected(item2)
 
         values_column_1 = []
         values_column_2 = []
 
-        data = cls.query.all()
-        for row in data[:50]:
+        data = cls.query.limit(50).all()
+        for row in data:
             values_column_1.append(getattr(row, column_1))
             values_column_2.append(getattr(row, column_2))
 
@@ -54,6 +60,28 @@ class Market_expenses(db.Model):
         plt.ylabel("Gastos en Dolares")
         plt.xlabel("Ultimos 50 Gastos") 
         plt.savefig('./static/img/charts/mtn_prods_chart.png')
+        plt.close()
+
+    @classmethod
+    def get_all_data_from_item(cls, item1):
+        column_1 = cls.get_column_name_by_item_selected(item1)
+
+        values_column = []
+
+        data = db.session.query(cls).with_entities(getattr(cls, column_1)).limit(40).all()
+
+        for value in data:
+            values_column.append(value[0])
+
+        plt.figure(figsize=(8,6))
+
+        plt.bar(values_column, label=item1, height=values_column)
+
+        plt.title('Comparacion de Gastos Entre 2 Areas')
+        plt.legend(loc='upper left')
+        plt.ylabel("Gastos en Dolares")
+        plt.xlabel("Ultimos 50 Gastos") 
+        plt.savefig('./static/img/charts/mtn_unic_prod_chart.png')
         plt.close()
 
     def get_column_name_by_item_selected(item):

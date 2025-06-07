@@ -20,14 +20,16 @@ body {
     grid-template-rows: 70px auto 30px;
 }
 
-footer {
+footer.footer {
     width: 100%;
+    height: 30px;
     background: #222222;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 0.9em;
     color: #eeeeee;
+    z-index: 20;
 }
 header.header-landing {
     width: 100%;
@@ -35,6 +37,7 @@ header.header-landing {
     justify-content: space-between;
     padding: 0rem 1rem;
     background: var(--bg-color-navbar);
+    z-index: 20;
 }
 
 span.header-app-name {
@@ -155,6 +158,7 @@ form.form-upload-file {
         background: #023e8a;
         color: white;
         border-radius: 0.3rem;
+        cursor: pointer;
     }
 }
 
@@ -202,6 +206,39 @@ main.main-market {
             font-weight: 500;
             color: #023e8a;
         }
+        .select-with-icon {
+            display: grid;
+            grid-template-columns: 90% 10%;
+        }
+        .select-group {
+            display: flex;
+            flex-direction: column;
+        }
+        a.a-info {
+            display: flex;
+            align-items: end;
+            padding-bottom: 20%;
+            margin-left: 0.2rem;
+            text-decoration: none;
+            position: relative;
+            color: #023e8a;
+        }
+        .a-info-text-hidden{
+            display: flex;
+            position: absolute;
+            top: 100%;
+            left: 60%;
+            background-color: gray;
+            color: white;
+            font-size: 0.8em;
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.2rem;
+            opacity: 0;
+            transition: all 0.2s ease-in-out;
+        }
+        a.a-info:hover .a-info-text-hidden{
+            opacity: 1;
+        }
         select.form-select {
             height: 2.3em;
             width: 100%;
@@ -211,7 +248,7 @@ main.main-market {
         }
         button.btn-compare {
             height: 2.3em;
-            width: 100%;
+            width: 80%;
             background: #023e8a;
             color: white;
             font-size: 0.8em;
@@ -220,4 +257,33 @@ main.main-market {
             margin-top: 1rem;
         }
     }
+}
+
+
+
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 8px solid #ddd;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

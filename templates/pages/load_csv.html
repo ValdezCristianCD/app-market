@@ -1,27 +1,14 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <header class="header-landing">
-        <!-- <div class="logo-container">
-            <img src="#" alt="" class="logo-img">
-        </div> -->
-        <span class="header-app-name">
-            {{ app_name.upper() }}
-        </span>
-        {% include "components/navbar.html" %}
-    </header>
+    {% include "components/headerPage.html" %}
     <main class="main-landing">
         <section class="main-section-upfile">
             <form action="/upload" method="POST" enctype="multipart/form-data" class="form-upload-file">
-            <label for="csv" class="upload-label">Subí un archivo CSV:</label>
-            <input type="file" name="csv_file" accept=".csv" class="csv-input" required />
-            <button type="submit" class="btn-upload-csv">CARGAR ARCHIVO</button>
+                <label for="csv" class="upload-label">Subí un archivo CSV:</label>
+                <input type="file" name="csv_file" accept=".csv" class="csv-input" required />
+                <button type="submit" class="btn-upload-csv">CARGAR ARCHIVO</button>
             </form>
         </section>
     </main>
-    <footer class="footer-landing">
-        &copy; 2025 ACME. Todos los derechos reservados.
-    </footer>
-
-    <script src="{{ url_for('static', filename='js/actions.js') }}"></script>
 {% endblock body%}

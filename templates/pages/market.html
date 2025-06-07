@@ -1,15 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <header class="header-landing">
-        <!-- <div class="logo-container">
-            <img src="#" alt="" class="logo-img">
-        </div> -->
-        <span class="header-app-name">
-            {{ app_name.upper() }}
-        </span>
-        {% include "components/navbar.html" %}
-    </header>
+    {% include "components/headerPage.html" %}
     <main class="main-market">
         <section class="main-section-desc">
             <img src="{{ url_for('static', filename='img/charts/mtn_prods_chart.png') }}" alt="" class="landing-main-logo">
@@ -19,11 +11,8 @@
                         {% include "./components/selects.html" %}
                     {% endfor %}
                     <button type="submit" class="btn-compare">Comparar</button>
-
                 </form>
             </div>
         </section>
     </main>
-
-    <script src="{{ url_for('static', filename='js/actions.js') }}"></script>
 {% endblock body%}

@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/calculator.css') }}">
-
-    <title>
-        {{ app_section }} - {{ app_name }}
-    </title>
-</head>
-<body>
+{% include "layouts/header.html" %}
     {% block body %} 
         <!-- Contenido del body de las templates hijas -->
     {% endblock body %}
-</body>
-</html>
+{% include "layouts/footer.html" %}
