@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block body %}
+    {% include "components/headerPage.html" %}
+    <main class="main-landing">
+        <section class="main-section-desc">
+            <img src="{{ url_for('static', filename='img/' ~ error.code ~ '.svg') }}" alt="" class="landing-main-logo">
+            <div class="desc-container">
+                <h1 class="desc-title">
+                    {{ error.code }} <br> {{ error.message }}
+                </h1>
+                <span class="desc-content">
+                {{ error.description}}
+                </span>
+            </div>
+        </section>
+    </main>
+{% endblock body%}

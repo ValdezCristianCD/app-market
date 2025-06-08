@@ -8,9 +8,9 @@ hidenav.addEventListener('click', () =>{
     navbar.classList.toggle('deploid')
 })
 
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
     const spinner = document.getElementById("loading-spinner");
     if (spinner) {
-    spinner.style.display = "none";
+        spinner.style.display = "none";
     }
 });

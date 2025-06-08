@@ -1,4 +1,4 @@
-from flask import redirect, url_for, render_template, request
+from flask import redirect, url_for, render_template, request, abort
 from models.Market_expenses import Market_expenses
 from create_app import create_app, db
 
@@ -74,7 +74,10 @@ def market():
         },
     }
     
-    Market_expenses.create_comparation_chart(item1, item2)
+    try:
+        Market_expenses.create_comparation_chart(item1, item2)
+    except:
+        abort(404)
     
     return render_template('pages/market.html',**page_vars)
 
@@ -89,10 +92,28 @@ def product_info():
         'app_section' : f'{item1}' 
     }
 
-    Market_expenses.get_all_data_from_item(item1)
-    
+    try:
+        Market_expenses.get_all_data_from_item(item1)
+    except:
+        abort(404)
+
     return render_template('pages/product_info.html',**page_vars)
 
+@app.errorhandler(404)
+def page_not_found(e):
+
+    page_vars = {
+        **app_config,
+        'nav_links' : links,
+        'app_section' : 'Recurso no encontrado',
+        'error' : {
+            'code': 404,
+            'message' : 'Recurso no encontrado',
+            'description' : 'Lo sentimos, el recurso solicitado no existe.'
+        }
+    }
+
+    return render_template('pages/error.html', **page_vars), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
