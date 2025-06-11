@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block body %}
+    <header class="header-landing">
+        <!-- <div class="logo-container">
+            <img src="#" alt="" class="logo-img">
+        </div> -->
+        <span class="header-app-name">
+            {{ app_name.upper() }}
+        </span>
+        {% include "components/navbar.html" %}
+    </header>
+    <h1 class="title">Comparacion entre campañas</h1>
+ 
+{% endblock body%}

@@ -26,7 +26,8 @@ def landing():
 
     links = {
         'LANDING' : '/landing',
-        'CARGAR DATA' : '/loadData'
+        'CARGAR DATA' : '/loadData',
+        'CALCULADORA' : '/calculator'
     }
 
     page_vars = {
@@ -95,52 +96,57 @@ def calculator():
     }
 
     if request.method == 'POST':
-        people = request.form.get("people")
+        people = int(request.form.get("people"))
+        
         income = int(request.form.get("income"))
-        if 1 < income < 30000 and people == 1:
-            return "Clase Baja (pobre, negro, villero, asqueroso, suciedad, mono, inferior)"
-        if 1 < income < 42000 and people == 2:
-            return "Clase Baja (pobre, negro, villero, asqueroso, suciedad, mono, inferior)"
-        if 1 < income < 60000 and people == 4:
-            return "Clase Baja (pobre, negro, villero, asqueroso, suciedad, mono, inferior)"
-        if 30000 < income < 40000 and people == 1:
-            return "Clase Baja-alta"
-        if 42000 < income < 56000 and people == 2:
-            return "Clase Baja-alta"
-        if 60000 < income < 80000 and people == 4:
-            return "Clase Baja-alta"
-        if 40000 < income < 55000 and people == 1:
-            return "Clase Media-baja"
-        if 56000 < income < 78000 and people == 2:
-            return "Clase Media-baja"
-        if 80000 < income < 110000 and people == 4:
-            return "Clase Media-baja"
-        if 55000 < income < 90000 and people == 1:
-            return "Clase Media"
-        if 78000 < income < 127000 and people == 2:
-            return "Clase Media"
-        if 110000 < income < 180000 and people == 4:
-            return "Clase Media"
-        if 90000 < income < 130000 and people == 1:
-            return "Clase Media-alta"
-        if 127000 < income < 183000 and people == 2:
-            return "Clase Media-alta"
-        if 260000 < income < 400000 and people == 4:
-            return "Clase Media-alta"
-        if 130000 < income < 200000 and people == 1:
-            return "Clase Alta-baja"
-        if 183000 < income < 280000 and people == 2:
-            return "Clase Alta-baja"
-        if 260000 < income < 400000 and people == 4:
-            return "Clase Alta-baja"
-        if income > 200000 and people == 1:
-            return "Clase Alta"
-        if income > 280000 and people == 2:
-            return "Clase Alta"
-        if income > 400000 and people == 4:
-            return "Clase Alta"
-            
+        print(income)
+        def class_calculator():
+            if 1 < income < 30000 and people == 1:
+                return "Usted pertenece a la Clase Baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 1 < income < 42000 and people == 2:
+                return "Usted pertenece a la Clase Baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 1 < income < 60000 and people == 4:
+                return "Usted pertenece a la Clase Baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 30000 < income < 40000 and people == 1:
+                return "Usted pertenece a la Clase Baja-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 42000 < income < 56000 and people == 2:
+                return "Usted pertenece a la Clase Baja-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 60000 < income < 80000 and people == 4:
+                return "Usted pertenece a la Clase Baja-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 40000 < income < 55000 and people == 1:
+                return "Usted pertenece a la Clase Media-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 56000 < income < 78000 and people == 2:
+                return "Usted pertenece a la Clase Media-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 80000 < income < 110000 and people == 4:
+                return "Usted pertenece a la Clase Media-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 55000 < income < 90000 and people == 1:
+                return "Usted pertenece a la Clase Media, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 78000 < income < 127000 and people == 2:
+                return "Usted pertenece a la Clase Media, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 110000 < income < 180000 and people == 4:
+                return "Usted pertenece a la Clase Media, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 90000 < income < 130000 and people == 1:
+                return "Usted pertenece a la Clase Media-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 127000 < income < 183000 and people == 2:
+                return "Usted pertenece a la Clase Media-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 260000 < income < 400000 and people == 4:
+                return "Usted pertenece a la Clase Media-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 130000 < income < 200000 and people == 1:
+                return "Usted pertenece a la Clase Alta-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 183000 < income < 280000 and people == 2:
+                return "Usted pertenece a la Clase Alta-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 260000 < income < 400000 and people == 4:
+                return "Usted pertenece a la Clase Alta-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if income > 200000 and people == 1:
+                return "Usted pertenece a la Clase Alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if income > 280000 and people == 2:
+                return "Usted pertenece a la Clase Alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if income > 400000 and people == 4:
+                return "Usted pertenece a la Clase Alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+        page_vars["display_data"] = class_calculator()  
+        
     return render_template('pages/calculator.html',**page_vars)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
