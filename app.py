@@ -16,6 +16,7 @@ links = {
     'LANDING' : '/landing',
     'CARGAR DATA' : '/loadData',
     'MERCADO' : '/market',
+    'COMPARACION' : '/comparation',
 }
 
 @app.route('/')
@@ -43,6 +44,44 @@ def loadData():
     }
 
     return render_template('pages/load_csv.html',**page_vars)
+
+@app.route('/comparation', methods=['GET', 'POST'])
+def comparation():
+    # Opciones para productos a comparar
+    product_options = ['Pescado','Carne','Frutas','Dulces','Vinos','Oro']
+    # Opciones para accepted cmp
+    accepted_options = ['AcceptedCmp3', 'AcceptedCmp4', 'AcceptedCmp5', 'AcceptedCmp1', 'AcceptedCmp2']
+
+    # Tomar valores desde el formulario (podés cambiar los nombres según el formulario)
+    item1 = request.form.get('area1', 'Carne')            # Para productos
+    item2 = request.form.get('area2', 'Pescado')          # Para productos
+    accepted1 = request.form.get('accept1', 'AcceptedCmp3')  # Para accepted cmp
+    accepted2 = request.form.get('accept2', 'AcceptedCmp4')  # Para accepted cmp
+
+    if request.method == 'POST':
+        # Aquí podrías pasar todos los valores que necesites para generar el gráfico
+        Market_expenses.create_comparation_chart(item1, item2, accepted1, accepted2)
+
+    return render_template('pages/comparation.html', **{
+        **app_config,
+        'nav_links': links,
+        'app_section': 'Comparación',
+        'select_values': {
+            'products': {
+                'options': product_options,
+                'option_selected_1': item1,
+                'option_selected_2': item2
+            },
+            'accepted': {
+                'options': accepted_options,
+                'option_selected_1': accepted1,
+                'option_selected_2': accepted2
+            }
+        },
+        'areas': product_options,
+        'accept_options': accepted_options
+    })
+
 
 @app.route('/market')
 def market():

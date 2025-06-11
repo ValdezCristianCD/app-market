@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparación de Campañas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 30px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 300px;
+        }
+        img {
+            border: 1px solid #ccc;
+            background-color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Comparación de Campañas y Gasto</h1>
+    <form method="GET">
+        <label for="campaign">Seleccionar Campaña:</label><br>
+        <select name="campaign" id="campaign">
+            <option value="AcceptedCmp1">AcceptedCmp1</option>
+            <option value="AcceptedCmp2">AcceptedCmp2</option>
+            <option value="AcceptedCmp3">AcceptedCmp3</option>
+            <option value="AcceptedCmp4">AcceptedCmp4</option>
+            <option value="AcceptedCmp5">AcceptedCmp5</option>
+        </select><br>
+
+        <label for="product">Seleccionar Tipo de Gasto:</label><br>
+        <select name="product" id="product">
+            <option value="MntWines">Vinos</option>
+            <option value="MntFruits">Frutas</option>
+            <option value="MntMeatProducts">Carnes</option>
+            <option value="MntFishProducts">Pescado</option>
+            <option value="MntSweetProducts">Dulces</option>
+            <option value="MntGoldProds">Productos de lujo</option>
+        </select><br>
+
+        <button type="submit">Generar Gráfico</button>
+    </form>
+
+    {% if campaign and product %}
+        <h2>Gráfico: {{ campaign }} vs {{ product }}</h2>
+        <img src="{{ url_for('plot_png', campaign=campaign, product=product) }}" alt="Gráfico de comparación">
+    {% endif %}
+</body>
+</html>
