@@ -287,3 +287,14 @@ main.main-market {
     0%   { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.chart-container {
+    width: 100%;
+    align-items: center;
+}
+
+.controls-container {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+}
