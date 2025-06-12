@@ -82,26 +82,6 @@ class Market_expenses(db.Model):
 
         return {'Valor Promedio' : average_value, 'Valor Maximo' : max_expense, 'Valor Minimo' : min_expense} 
 
-    @classmethod
-    def get_all_data_from_item(cls, item1):
-        column_1 = cls.get_column_name_by_item_selected(item1)
-
-        if not column_1:
-            print("Item no válido")
-            return
-
-        df = pl.read_csv('./instance/data/ifood_df.csv')
-        values_column = df[column_1][:40].to_list()
-
-        plt.figure(figsize=(8, 6))
-        plt.bar(range(len(values_column)), values_column, label=item1)
-        plt.title(f'Gastos en {item1}')
-        plt.legend(loc='upper left')
-        plt.ylabel("Gastos")
-        plt.xlabel("Últimos 40 registros")
-        plt.savefig('./static/img/charts/mtn_unic_prod_chart.png')
-        plt.close()
-
     @staticmethod
     def get_column_name_by_item_selected(item):
         switch = {
@@ -134,3 +114,5 @@ class Market_expenses(db.Model):
         plt.xlabel('Campañas')
         plt.savefig('./static/img/charts/campaigns_chart.png')
         plt.close()
+
+        return  {'Campaña 1': df['AcceptedCmp1'].sum(), 'Campaña 2': df['AcceptedCmp2'].sum(), 'Campaña 3': df['AcceptedCmp3'].sum(), 'Campaña 4': df['AcceptedCmp4'].sum(), 'Campaña 5': df['AcceptedCmp5'].sum()}

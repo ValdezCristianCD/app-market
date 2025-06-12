@@ -112,6 +112,7 @@ main.main-landing {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: start;
     gap: 2rem;
     padding-right: 1rem;
 }

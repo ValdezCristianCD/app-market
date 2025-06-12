@@ -6,9 +6,18 @@
     {% include "components/headerPage.html" %}
     <main class="main-market">
         <section class="main-section-desc">
-            <h2>Gráfico de Campañas</h2>
-
             <img class="img" src="{{ url_for('static', filename='img/charts/campaigns_chart.png') }}" alt="Gráfico de campañas">
+            <div class="desc-container">
+                <h1 class="desc-title">
+                    ANALISIS DE LAS CAMPAÑAS
+                </h1>
+                <section class="desc-data">
+                    {% for label, value in data.items() %}
+                        {% include "components/dataGroup.html" %}
+                    {% endfor %}
+                </section>
+
+            </div>
         </section>
     </main>
 {% endblock %}

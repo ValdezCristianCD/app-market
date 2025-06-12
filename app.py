@@ -40,12 +40,13 @@ def landing():
 
 @app.route('/grafico_campanias')
 def grafico_campanias():
-    Market_expenses.create_all_campaigns_chart()
+    data = Market_expenses.create_all_campaigns_chart()
 
     page_vars = {
         **app_config,
         'nav_links': links,
-        'app_section': 'Gráfico Campañas'
+        'app_section': 'Gráfico Campañas',
+        'data' : data
     }
 
     return render_template('pages/grafico_campanias.html', **page_vars)
