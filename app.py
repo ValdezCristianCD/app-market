@@ -88,17 +88,19 @@ def market():
 def product_info():
 
     item1 = request.args.get('vid', 'Carne')
+    limit = request.args.get('limit', 10)
+
+    try:
+        response = Market_expenses.get_all_data_from_item(item1, limit)
+    except:
+        abort(404)
 
     page_vars = {
         **app_config,
         'nav_links' : links,
-        'app_section' : f'{item1}' 
+        'app_section' : f'{item1}',
+        'data' : response,
     }
-
-    try:
-        Market_expenses.get_all_data_from_item(item1)
-    except:
-        abort(404)
 
     return render_template('pages/product_info.html',**page_vars)
 

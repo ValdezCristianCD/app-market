@@ -56,26 +56,32 @@ class Market_expenses(db.Model):
         plt.close()
 
     @classmethod
-    def get_all_data_from_item(cls, item1):
+    def get_all_data_from_item(cls, item1, limit):
         column_1 = cls.get_column_name_by_item_selected(item1)
 
         values_column = []
 
-        data = db.session.query(cls).with_entities(getattr(cls, column_1)).limit(40).all()
+        data = db.session.query(cls).with_entities(getattr(cls, column_1)).limit(limit).all()
 
         for value in data:
             values_column.append(value[0])
 
         plt.figure(figsize=(8,6))
 
-        plt.bar(values_column, label=item1, height=values_column)
+        plt.bar(list(range(0,limit)), label=item1, height=values_column)
 
-        plt.title('Comparacion de Gastos Entre 2 Areas')
+        plt.title(f'Analisis de {item1}')
         plt.legend(loc='upper left')
         plt.ylabel("Gastos en Dolares")
-        plt.xlabel("Ultimos 50 Gastos") 
+        plt.xlabel(f'Ultimos {limit} Gastos') 
         plt.savefig('./static/img/charts/mtn_unic_prod_chart.png')
         plt.close()
+
+        average_value = sum(values_column) / len(values_column)
+        max_expense = max(values_column)
+        min_expense = min(values_column)
+
+        return {'Valor Promedio' : average_value, 'Valor Maximo' : max_expense, 'Valor Minimo' : min_expense} 
 
     def get_column_name_by_item_selected(item):
 
