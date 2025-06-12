@@ -11,12 +11,6 @@ class Market_expenses(db.Model):
     MntFishProducts = db.Column(db.Integer)
     MntSweetProducts = db.Column(db.Integer)
     MntWines = db.Column(db.Integer)
-    MntGoldProds = db.Column(db.Integer)
-    AcceptedCmp1 = db.Column(db.Integer)
-    AcceptedCmp2 = db.Column(db.Integer)
-    AcceptedCmp3 = db.Column(db.Integer)
-    AcceptedCmp4 = db.Column(db.Integer)
-    AcceptedCmp5 = db.Column(db.Integer)
 
     @classmethod
     def population_market_expenses(cls):
@@ -30,11 +24,6 @@ class Market_expenses(db.Model):
                 MntSweetProducts = int(row['MntSweetProducts']) * 10,
                 MntWines = int(row['MntWines']) * 10,
                 MntGoldProds = int(row['MntGoldProds']) * 10,
-                AcceptedCmp1 = int(row['AcceptedCmp1']),
-                AcceptedCmp2 = int(row['AcceptedCmp2']),
-                AcceptedCmp3 = int(row['AcceptedCmp3']),
-                AcceptedCmp4 = int(row['AcceptedCmp4']),
-                AcceptedCmp5 = int(row['AcceptedCmp5'])
             )
             db.session.add(entry)
         db.session.commit()
@@ -125,6 +114,7 @@ class Market_expenses(db.Model):
         }
         return switch.get(item)
 
+    #Mas adelante, Se debe crear otro modelo especifico para las campañas 
     @classmethod
     def create_all_campaigns_chart(cls):
         df = pl.read_csv('./instance/data/ifood_df.csv')
