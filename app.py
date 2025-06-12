@@ -15,10 +15,11 @@ app_config = {
 }
 
 links = {
+    'PERSONAL' : '/perfil-personal',
+    'ESTADISTICAS' : '/gastos-anuales',
     'LANDING' : '/landing',
     'CARGAR DATA' : '/loadData',
     'MERCADO' : '/market',
-    'ESTADISTICAS' : '/gastos-anuales'
 }
 
 @app.route('/')
@@ -283,6 +284,18 @@ def page_not_found(e):
     }
 
     return render_template('pages/error.html', **page_vars), 404
+
+@app.route('/perfil-personal') 
+def perfil_personal():
+    user_data = {
+        'nombre': 'Martín Pérez',
+        'estado_civil': 'Soltero',
+        'nivel_educativo': 'Universitario',
+        'hijos_pequenos': 1,
+        'hijos_adolescentes': 0,
+        'ingresos': 250000.00 
+    }
+    return render_template('pages/personal.html', user_data=user_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
