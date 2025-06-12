@@ -123,6 +123,9 @@ a.r-navbar-link:hover {
             margin: 0!important;
         }
     }
+    .desc-container.cpm_section{
+        max-height: 25rem;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -142,4 +145,5 @@ a.r-navbar-link:hover {
             box-shadow: none;
         }
     }
+    
 }
