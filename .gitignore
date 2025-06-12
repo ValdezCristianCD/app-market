@@ -1,0 +1,15 @@
+ideas.txt
+# Entorno virtual
+venv/
+.env/
+.venv/
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+
+# Base de datos SQLite
+*.db
+
+# Archivos de editor
+.vscode/
