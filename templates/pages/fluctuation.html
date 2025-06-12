@@ -3,41 +3,43 @@
 {% block body %}
 {% include "components/headerPage.html" %}
 <main class="main-landing">
-    <section class="main-section-desc">
+    <section class="main-section-desc fluctuation-section">
+        
         <div class="chart-container">
-            <img id="gastos-chart" src="{{ url_for('plot_gastos',
+            <img class="gastos-chart" id="gastos-chart" src="{{ url_for('plot_gastos',
                                  type=current_view_type,
                                  year=current_year,
                                  compare_year=request.args.get('compare_year'), 
                                  category=request.args.get('category') 
-                                 ) }}" alt="Gráfico de Gastos Anuales/Mensuales"
-                style="max-width: 100%; height: auto; display: block; margin: 20px auto;">
+                                 ) }}" alt="Gráfico de Gastos Anuales/Mensuales">
         </div>
+        
         <div class="controls-container">
-                <div class="title-section">
-        <h1>Fluctuación de Gastos</h1>
-        <p>Selecciona una opción para visualizar tus gastos.</p>
-    </div>
-            <h3>Seleccionar Año(s)</h3>
-            <div class="button-group">
-                {% for year_key in available_years %}
-                <a href="{{ url_for('mostrar_fluctuacion', year=year_key, type=current_view_type) }}"
-                    class="button {% if current_year == year_key %}active{% endif %}">
-                    {{ year_key }}
-                </a>
-                {% endfor %}
-                {% if current_view_type == 'anual' %}
-                {% set previous_year = (current_year | int - 1) | string %}
-                {% if previous_year in available_years %}
-                <a href="{{ url_for('mostrar_fluctuacion', year=current_year, compare_year=previous_year, type='anual') }}"
-                    class="button {% if request.args.get('compare_year') == previous_year and current_view_type == 'anual' %}active{% endif %}">
-                    {{ current_year }} vs {{ previous_year }}
-                </a>
-                {% endif %}
-                {% endif %}
+            <div class="title-section">
+                <h1 class="title">FLUCTUACION DE GASTOS</h1>
             </div>
-
-            <h3>Vista</h3>
+            <div class="btn-control-group">
+                <span class="btn-control-title">SELECCIONA UN PERIODO</span>
+                <div class="button-group">
+                    {% for year_key in available_years %}
+                    <a href="{{ url_for('mostrar_fluctuacion', year=year_key, type=current_view_type) }}"
+                        class="button {% if current_year == year_key %}active{% endif %}">
+                        {{ year_key }}
+                    </a>
+                    {% endfor %}
+                    {% if current_view_type == 'anual' %}
+                    {% set previous_year = (current_year | int - 1) | string %}
+                    {% if previous_year in available_years %}
+                    <a href="{{ url_for('mostrar_fluctuacion', year=current_year, compare_year=previous_year, type='anual') }}"
+                        class="button {% if request.args.get('compare_year') == previous_year and current_view_type == 'anual' %}active{% endif %}">
+                        {{ current_year }} vs {{ previous_year }}
+                    </a>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="btn-control-group">
+            <span class="btn-control-title">TIPO DE PERIODO</span>
             <div class="button-group">
                 <a href="{{ url_for('mostrar_fluctuacion', type='anual', year=current_year) }}"
                     class="button {% if current_view_type == 'anual' %}active{% endif %}">
@@ -48,9 +50,10 @@
                     Mensual
                 </a>
             </div>
-
+            </div>
+            <div class="btn-control-group">
             {% if current_view_type == 'mensual' %}
-            <h3>Seleccionar Categoría (Mensual)</h3>
+            <span class="btn-control-title">SELECCIONA UNA CATEGORIA</span>
             <div class="button-group">
                 {% for cat in available_categories %}
                 <a href="{{ url_for('mostrar_fluctuacion', type='mensual', year=current_year, category=cat) }}"
@@ -60,7 +63,9 @@
                 {% endfor %}
             </div>
             {% endif %}
+            </div>
         </div>
+
     </section>
 </main>
 {% endblock body %}

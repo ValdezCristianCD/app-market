@@ -1,48 +1,58 @@
-cd C:\Users\marti\app-market.container {
-    max-width: 900px; 
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
+.img-conteiner {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding-top: 1rem;
+}
+
+.personal-section {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 20% 80%;
+    justify-content: center;
+    align-items: center;
+}
+
+img.personal-user-logo {
+    width: 80%;
+    height: 80%;
 }
 
 .card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
 }
 
 .card-header {
-    background-color: #f8f9fa; 
-    padding: 15px 20px;
-    border-bottom: 1px solid #e9ecef;
-    font-weight: bold;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    height: 2em;
+    font-size: 1.4em;
+    font-weight: 500;
+    color: #023e8a;
 }
 
 .card-body {
-    padding: 20px;
+    min-height: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.card-body p {
-    margin-bottom: 10px;
-    line-height: 1.6;
-    color: #333;
-}
-
-.card-body p:last-child {
-    margin-bottom: 0;
-}
-
-.card-body strong {
-    color: #555;
-    min-width: 150px; 
-    display: inline-block; 
-}
-
-h1 {
-    color: #343a40;
+h1.personal-title {
+    font-size: 1.6em;
+    color: #004ae9;
+    font-weight: 700;
     text-align: center;
-    margin-bottom: 30px;
+}
+
+span.card-body-item {
+    font-size: 1.05em;
+    font-weight: 500;
+    color: #023e8a;
 }

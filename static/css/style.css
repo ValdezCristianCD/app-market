@@ -136,7 +136,7 @@ form.form-upload-file {
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    background: #f9f9f9;
+    background: white;
     border-radius: 1rem;
     box-shadow: 5px 5px 10px #b9b9b9;
 
@@ -164,7 +164,8 @@ form.form-upload-file {
 
 section.main-section-upfile {
     height: 100%;
-    width: 60%;
+    width: 100%;
+    max-width: 800px;
     margin: auto;
     display: flex;
     justify-content: center;
@@ -249,6 +250,7 @@ main.main-market {
         button.btn-compare {
             height: 2.3em;
             width: 80%;
+            max-width: 200px;
             background: #023e8a;
             color: white;
             font-size: 0.8em;
@@ -284,17 +286,6 @@ main.main-market {
 @keyframes spin {
     0%   { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-.chart-container {
-    width: 100%;
-    align-items: center;
-}
-
-.controls-container {
-    width: 100%;
-    text-align: center;
-    align-items: center;
 }
 
 section.desc-data {
