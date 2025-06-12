@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }} {# Esto es importante para mantener los estilos de base.html #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/personal.css') }}">
+{% endblock %}
+
+{% block title %}Mi Perfil Personal{% endblock %}
+
+{% block body %}
+<main class="page-content">
+    <div class="container mt-5">
+        <h1 class="mb-4">Perfil de Usuario</h1>
+
+        <div class="card">
+            <div class="card-header">
+                Información Personal
+            </div>
+            <div class="card-body">
+                <p><strong>Nombre:</strong> {{ user_data.nombre }}</p>
+                <p><strong>Estado Civil:</strong> {{ user_data.estado_civil }}</p>
+                <p><strong>Nivel Educativo:</strong> {{ user_data.nivel_educativo }}</p>
+                <p><strong>Hijos Pequeños:</strong> {{ user_data.hijos_pequenos }}</p>
+                <p><strong>Hijos Adolescentes:</strong> {{ user_data.hijos_adolescentes }}</p>
+                <p><strong>Ingresos:</strong> ${{ user_data.ingresos | format_currency }}</p> 
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}
