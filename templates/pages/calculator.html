@@ -32,21 +32,29 @@
         </form>
     </div>
     <div class="calculator">
+        <div class="response_container">
         {% if display_data %}
             <div class="response">
                 <h1>{{ display_data }}</h1>
             </div>
         {% endif %}
-    <div z-index class="keypad">
-        <button></button>
-        <button></button>
-        <button></button>
-        <button></button>
-        <button></button>
-        <button></button> 
     </div>
-    <div class="keypad_2">
+    <div class="keypad_container">
+        <div z-index class="keypad">
             <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button> 
+            <button></button>
+            <button></button>
+            <button></button>
+        </div>
+    
+        <div class="keypad_2">
+            <button></button>
+         </div>
         </div>
     </div>
     </div>
