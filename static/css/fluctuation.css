@@ -1,0 +1,77 @@
+.button-group {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.button {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #007bff;
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    font-size: 0.9em;
+    white-space: nowrap; 
+}
+
+.button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.button.active {
+    background-color: #0056b3;
+    color: white;
+    border-color: #0056b3;
+    cursor: default;
+}
+
+span.btn-control-title {
+    font-size: 1em;
+    color: #023e8a;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.controls-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding: 1.5rem 0rem 0rem 1rem;
+    gap: 1rem;
+}
+
+.btn-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+h1.title {
+    font-size: 1.6em;
+    color: #004ae9;
+    font-weight: 700;
+    text-align: center;
+}
+
+.chart-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+img#gastos-chart {
+    width: 100%!important;
+    height: 80%!important;
+    object-fit: contain;
+    margin: auto;
+}
