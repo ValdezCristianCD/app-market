@@ -42,40 +42,56 @@ class Market_expenses(db.Model):
     @classmethod
     def create_comparation_chart(cls, item1, item2):
         # Mapeo de nombres legibles a columnas reales
-        switch = {
-            'Pescado': 'MntFishProducts',
-            'Carne': 'MntMeatProducts',
-            'Frutas': 'MntFruits',
-            'Dulces': 'MntSweetProducts',
-            'Vinos': 'MntWines',
-            'Oro': 'MntGoldProds',
-            'AcceptedCmp1': 'AcceptedCmp1',
-            'AcceptedCmp2': 'AcceptedCmp2',
-            'AcceptedCmp3': 'AcceptedCmp3',
-            'AcceptedCmp4': 'AcceptedCmp4',
-            'AcceptedCmp5': 'AcceptedCmp5',
-        }
+        column_1 = cls.get_column_name_by_item_selected(item1)
+        column_2 = cls.get_column_name_by_item_selected(item2)
 
-        column_1 = switch.get(item1)
-        column_2 = switch.get(item2)
+        values_column_1 = []
+        values_column_2 = []
 
-        if not column_1 or not column_2:
-            print("Columnas no válidas")
-            return
+        data = cls.query.limit(50).all()
+        for row in data:
+            values_column_1.append(getattr(row, column_1))
+            values_column_2.append(getattr(row, column_2))
 
-        df = pl.read_csv('./instance/data/ifood_df.csv')
-        values_column_1 = df[column_1][:50].to_list()
-        values_column_2 = df[column_2][:50].to_list()
+        plt.figure(figsize=(8,6))
 
-        plt.figure(figsize=(8, 6))
         plt.plot(values_column_1, label=item1)
         plt.plot(values_column_2, label=item2)
-        plt.title('Comparación de Gastos Entre 2 Áreas')
+
+        plt.title('Comparacion de Gastos Entre 2 Areas')
         plt.legend(loc='upper left')
-        plt.ylabel("Gastos")
-        plt.xlabel("Últimos 50 registros")
+        plt.ylabel("Gastos en Dolares")
+        plt.xlabel("Ultimos 50 Gastos") 
         plt.savefig('./static/img/charts/mtn_prods_chart.png')
         plt.close()
+
+    @classmethod
+    def get_all_data_from_item(cls, item1, limit):
+        column_1 = cls.get_column_name_by_item_selected(item1)
+
+        values_column = []
+
+        data = db.session.query(cls).with_entities(getattr(cls, column_1)).limit(limit).all()
+
+        for value in data:
+            values_column.append(value[0])
+
+        plt.figure(figsize=(8,6))
+
+        plt.bar(list(range(0,limit)), label=item1, height=values_column)
+
+        plt.title(f'Analisis de {item1}')
+        plt.legend(loc='upper left')
+        plt.ylabel("Gastos en Dolares")
+        plt.xlabel(f'Ultimos {limit} Gastos') 
+        plt.savefig('./static/img/charts/mtn_unic_prod_chart.png')
+        plt.close()
+
+        average_value = sum(values_column) / len(values_column)
+        max_expense = max(values_column)
+        min_expense = min(values_column)
+
+        return {'Valor Promedio' : average_value, 'Valor Maximo' : max_expense, 'Valor Minimo' : min_expense} 
 
     @classmethod
     def get_all_data_from_item(cls, item1):
@@ -106,11 +122,6 @@ class Market_expenses(db.Model):
             'Dulces': 'MntSweetProducts',
             'Vinos': 'MntWines',
             'Oro': 'MntGoldProds',
-            'AcceptedCmp1': 'AcceptedCmp1',
-            'AcceptedCmp2': 'AcceptedCmp2',
-            'AcceptedCmp3': 'AcceptedCmp3',
-            'AcceptedCmp4': 'AcceptedCmp4',
-            'AcceptedCmp5': 'AcceptedCmp5',
         }
         return switch.get(item)
 
