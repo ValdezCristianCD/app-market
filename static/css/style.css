@@ -289,7 +289,7 @@ main.main-market {
     100% { transform: rotate(360deg); }
 }
 
-section.desc-data {
+.desc-data {
     display: flex;
     flex-direction: column;
     gap: 1rem;

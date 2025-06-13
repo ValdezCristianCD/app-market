@@ -112,6 +112,7 @@ a.r-navbar-link:hover {
         padding: 0rem;
         box-shadow: none;
         padding-left: 1rem;
+        margin: 0;
     }
     div.chart-container {
         width: 90%;
@@ -125,6 +126,16 @@ a.r-navbar-link:hover {
     }
     .desc-container.cpm_section{
         max-height: 25rem;
+    }
+    section.desc-data {
+        min-height: 6rem;
+        gap: 0.5rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    img.img {
+        max-height: 340px;
+        object-fit: contain;
     }
 }
 
