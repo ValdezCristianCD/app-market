@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block body %}
+    {% include "components/headerPage.html" %}
+    <main class="main-landing table-data">
+        {% if data %}
+            <div class="table-responsive mt-4">
+                <table class="table table-bordered table-striped table-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            {% for col in columns %}
+                                <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                            <tr>
+                                {% for col in columns %}
+                                    <td>{{ row[col] }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="mt-4">No hay datos para mostrar.</p>
+        {% endif %}
+    </main>
+{% endblock body%}
