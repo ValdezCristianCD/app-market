@@ -308,8 +308,13 @@ def perfil_personal():
 def calculator():
 
     links = {
-            'LANDING' : '/landing',
-            'CARGAR DATA' : '/loadData'
+        'LANDING' : '/landing',
+        'CARGAR DATA' : '/loadData',
+        'MERCADO' : '/market',
+        'ESTADISTICAS' : '/gastos-anuales',
+        'CAMPAÑAS': '/grafico_campanias',
+        'PERSONAL' : '/perfil-personal',
+        'CALCULADORA' : '/calculator'
         }
     page_vars = {
         **app_config,
