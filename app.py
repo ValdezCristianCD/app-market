@@ -1,5 +1,6 @@
 from flask import redirect, url_for, render_template, request, abort, Response
 from models.Market_expenses import Market_expenses
+from models.Data_market import Data_market
 from create_app import create_app, db
 import matplotlib.pyplot as plt
 import io
@@ -53,9 +54,14 @@ def grafico_campanias():
     return render_template('pages/grafico_campanias.html', **page_vars)
 
 
-@app.route('/loadData')
-def loadData():
+@app.route('/loadData', methods=['GET','POST'])
+def upload_market_csv():
 
+    file = request.files.get('csv_file')
+    if file:
+        Data_market.population_from_dataframe(file)
+        return redirect(url_for('view_loaded_data'))
+        
     page_vars = {
         **app_config,
         'nav_links' : links,
@@ -319,7 +325,7 @@ def calculator():
     page_vars = {
         **app_config,
         'nav_links' : links,
-        'app_section' : 'Cargar Data' 
+        'app_section' : 'Calculadora de clases' 
     }
 
     if request.method == 'POST':
@@ -373,6 +379,19 @@ def calculator():
         page_vars["display_data"] = class_calculator()  
         
     return render_template('pages/calculator.html',**page_vars)
+@app.route('/view_data', methods=['GET'])
+def view_loaded_data():
+    data = Data_market.query.limit(500).all()
+
+    page_vars = {
+        **app_config,
+        'nav_links': links,
+        'app_section': 'Ver Datos',
+        'data': data,
+        'columns': [column.name for column in Data_market.__table__.columns]
+    }
+
+    return render_template('pages/view_data.html', **page_vars)
 
 @app.errorhandler(404)
 def page_not_found(e):

@@ -289,7 +289,7 @@ main.main-market {
     100% { transform: rotate(360deg); }
 }
 
-section.desc-data {
+.desc-data {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -311,4 +311,30 @@ span.data-value {
     font-size: 1.2em;
     font-style: italic;
     font-weight: 500;
+}
+
+main.main-landing.table-data {
+    width: 100%;
+    overflow: hidden;
+    justify-content: start;
+    align-items: center;
+}
+.table-responsive.mt-4 {
+    margin-top: 1rem;
+    height: 90%;
+    width: 90%;
+    overflow: scroll;
+    border-radius: 0.2rem;
+    border: 1px solid #004ae9;
+}
+thead.thead-dark > tr {
+    background-color: #023e8a;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #e7f0ff;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
 }
