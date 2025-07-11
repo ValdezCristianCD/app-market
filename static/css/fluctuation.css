@@ -1,38 +1,100 @@
-.controls-container h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #333;
+.fluctuation-page {
+  padding: 20px;
+  background-color: #fafafa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 80vh;
 }
 
-.button-group {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 15px;
+.fluctuation-page .main-section-desc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: center;
 }
 
-.button {
-    display: inline-block;
-    padding: 10px 15px;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #007bff;
-    background-color: #fff;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    font-size: 0.9em;
-    white-space: nowrap; 
+.fluctuation-page .chart-container {
+  flex: 1 1 600px;
+  max-width: 700px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.button:hover {
-    background-color: #007bff;
-    color: white;
+.fluctuation-page #gastos-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
-.button.active {
-    background-color: #0056b3;
-    color: white;
-    border-color: #0056b3;
-    cursor: default;
+.fluctuation-page .controls-container {
+  flex: 1 1 300px;
+  max-width: 350px;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.fluctuation-page .title-section h1 {
+  font-size: 2rem;
+  margin-bottom: 0.3em;
+  color: #222;
+}
+
+.fluctuation-page .title-section p {
+  color: #555;
+  margin-bottom: 1em;
+  font-size: 1rem;
+}
+
+.fluctuation-page .controls-container h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.7em;
+  color: #333;
+  font-weight: 600;
+}
+
+.fluctuation-page .button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fluctuation-page .button {
+  padding: 8px 15px;
+  background-color: #ddd;
+  color: #444;
+  text-decoration: none;
+  border-radius: 20px;
+  font-weight: 500;
+  user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.fluctuation-page .button.active {
+  background-color: #1976d2;
+  color: white;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.6);
+}
+
+.fluctuation-page .button:hover:not(.active) {
+  background-color: #bbb;
+  color: #222;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .fluctuation-page .main-section-desc {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .fluctuation-page .chart-container, 
+  .fluctuation-page .controls-container {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
 }
