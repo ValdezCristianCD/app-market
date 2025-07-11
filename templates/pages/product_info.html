@@ -3,7 +3,8 @@
 {% block body %}
     {% include "components/headerPage.html" %}
     <main class="main-landing">
-        <section class="main-section-desc">
+        <section class="main-section-desc" style="position: relative;">
+            <a href="/market" class="btn-back-page">Volver</a>
             <img src="{{ url_for('static', filename='img/charts/mtn_unic_prod_chart.png') }}" alt="" class="landing-main-logo">
             <div class="desc-container">
                 <h1 class="desc-title">

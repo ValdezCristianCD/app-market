@@ -338,3 +338,13 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
     background-color: #ffffff;
 }
+
+.btn-back-page {
+    position: absolute;
+    content: '';
+    top: 1rem;
+    left: 1rem;
+    text-decoration: none;
+    font-size: 0.9em;
+    color: #023e8a;
+}

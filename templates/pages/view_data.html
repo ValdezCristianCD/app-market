@@ -3,6 +3,35 @@
 {% block body %}
     {% include "components/headerPage.html" %}
     <main class="main-landing table-data">
+    <form method="get" class="mb-3">
+        Edad: <input type="number" name="age_min" value="{{ filters.age_min or '' }}" placeholder="mín"> -
+        <input type="number" name="age_max" value="{{ filters.age_max or '' }}" placeholder="máx">
+
+        Ingreso: <input type="number" name="income_min" value="{{ filters.income_min or '' }}" placeholder="mín"> -
+        <input type="number" name="income_max" value="{{ filters.income_max or '' }}" placeholder="máx">
+
+        Estado civil:
+        <select name="marital_status">
+            <option value="">-- Todos --</option>
+            <option value="Single" {% if filters.marital_status == 'Single' %}selected{% endif %}>Soltero/a</option>
+            <option value="Married" {% if filters.marital_status == 'Married' %}selected{% endif %}>Casado/a</option>
+            <option value="Together" {% if filters.marital_status == 'Together' %}selected{% endif %}>Juntos</option>
+            <option value="Divorced" {% if filters.marital_status == 'Divorced' %}selected{% endif %}>Divorciado/a</option>
+            <option value="Widow" {% if filters.marital_status == 'Widow' %}selected{% endif %}>Viudo/a</option>
+        </select>
+
+        Educación:
+        <select name="education">
+            <option value="">-- Todas --</option>
+            <option value="Basic" {% if filters.education == 'Basic' %}selected{% endif %}>Básica</option>
+            <option value="2n_Cycle" {% if filters.education == '2n_Cycle' %}selected{% endif %}>2do Ciclo</option>
+            <option value="Graduation" {% if filters.education == 'Graduation' %}selected{% endif %}>Graduado</option>
+            <option value="Master" {% if filters.education == 'Master' %}selected{% endif %}>Maestría</option>
+            <option value="PhD" {% if filters.education == 'PhD' %}selected{% endif %}>Doctorado</option>
+        </select>
+
+        <button type="submit">Aplicar filtros</button>
+    </form>
         {% if data %}
             <div class="table-responsive mt-4">
                 <table class="table table-bordered table-striped table-sm">
@@ -26,6 +55,13 @@
             </div>
         {% else %}
             <p class="mt-4">No hay datos para mostrar.</p>
+        {% endif %}
+        {% if pagination.has_prev %}
+            <a href="{{ url_for('view_loaded_data', page=pagination.prev_num, **filters) }}">Anterior</a>
+        {% endif %}
+        Página {{ pagination.page }} de {{ pagination.pages }}
+        {% if pagination.has_next %}
+            <a href="{{ url_for('view_loaded_data', page=pagination.next_num, **filters) }}">Siguiente</a>
         {% endif %}
     </main>
 {% endblock body%}

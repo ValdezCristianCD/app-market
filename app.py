@@ -5,7 +5,7 @@ from create_app import create_app, db
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import io
+import io, os, math
 import random
 
 app = create_app()
@@ -22,10 +22,11 @@ links = {
     'LANDING' : '/landing',
     'CARGAR DATA' : '/loadData',
     'MERCADO' : '/market',
-    'ESTADISTICAS' : '/plot/gastos',
+    'ESTADISTICAS' : '/fluctuacion',
     'CAMPAÑAS': '/grafico_campanias',
     'PERSONAL' : '/perfil-personal',
-    'CALCULADORA' : '/calculator'
+    'CALCULADORA' : '/calculator',
+    'DATOS' : 'view_data?age_min=&age_max=&income_min=&income_max=&marital_status=&education=',
 }
 
 @app.route('/')
@@ -130,13 +131,11 @@ def product_info():
 
     return render_template('pages/product_info.html',**page_vars)
 
-
-
 def build_plot_image(view_type='anual', category=None):
-    item = Market_expenses.query.offset(4).first()  # persona 5
+    item = Market_expenses.query.offset(4).first()
 
     if not item:
-        return None, "No hay datos de la persona 5"
+        return None, None, "No hay datos de la persona 5"
 
     gastos_base = {
         'Carne': item.MntMeatProducts,
@@ -159,28 +158,9 @@ def build_plot_image(view_type='anual', category=None):
     gasto_anio_1 = {k: round(v * MULTIPLICADORES[k][0], 2) for k, v in gastos_base.items()}
     gasto_anio_2 = {k: round(v * MULTIPLICADORES[k][1], 2) for k, v in gastos_base.items()}
 
-    fig, ax = plt.subplots(figsize=(12, 7))
-    title = ""
-    y_label = "Gasto ($)"
-    x_label = ""
 
-    if view_type == 'anual':
-        categorias = list(gasto_anio_1.keys())
-        valores_1 = [gasto_anio_1[c] for c in categorias]
-        valores_2 = [gasto_anio_2[c] for c in categorias]
-
-        x = list(range(len(categorias)))
-        width = 0.35
-
-        ax.bar([i - width/2 for i in x], valores_1, width, label='Año Simulado 1', color='skyblue')
-        ax.bar([i + width/2 for i in x], valores_2, width, label='Año Simulado 2', color='salmon')
-        ax.set_xticks(x)
-        ax.set_xticklabels(categorias, rotation=45, ha='right')
-        ax.legend()
-        title = 'Comparación de Gastos Anuales Simulados'
-        x_label = 'Categoría de Gasto'
-
-    elif view_type == 'mensual':
+    if view_type == 'mensual':
+        fig, ax = plt.subplots()
         if not category or category not in gastos_base:
             ax.text(0.5, 0.5, 'Seleccioná una categoría para ver los datos mensuales.',
                     horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, fontsize=14)
@@ -198,37 +178,103 @@ def build_plot_image(view_type='anual', category=None):
             valores_2 = dividir_en_meses(gasto_anio_2[category])
 
             x = list(range(12))
-            ax.plot(x, valores_1, linestyle='-', label='Año Simulado 1', color='skyblue')
-            ax.plot(x, valores_2, linestyle='--', label='Año Simulado 2', color='salmon')
+            ax.plot(x, valores_1, linestyle='-', label='2023', color='skyblue')
+            ax.plot(x, valores_2, linestyle='--', label='2024', color='salmon')
             ax.set_xticks(x)
             ax.set_xticklabels(meses, rotation=45)
             ax.legend()
-            title = f'Gasto Mensual Simulado en {category}'
+            title = f'Gasto Mensual en {category}'
             x_label = 'Mes'
+        x_label = 'Mes'
+        ax.set_title(title)
+        ax.set_ylabel('Gastos ($USD)')
+        ax.set_xlabel(x_label)
+        plt.tight_layout()
 
-    ax.set_title(title)
-    ax.set_ylabel(y_label)
-    ax.set_xlabel(x_label)
+        filename = f"plot_{view_type}_{category}_{random.randint(1000,9999)}.png"
+        filename_real = os.path.join('static', 'img', filename)
+        plt.savefig(filename_real)
+        plt.close(fig)
+
+        return filename, None, None
+
+    gasto_anio_3 = {}
+    gasto_anio_4 = {}
+
+    for cat in gastos_base:
+        x1, y1 = 2023, gasto_anio_1[cat]
+        x2, y2 = 2024, gasto_anio_2[cat]
+        m = (y2 - y1) / (x2 - x1)
+        b = y1 - m * x1
+
+        gasto_anio_3[cat] = round(min(5000, max(0, m * 2025 + b)), 2)
+        gasto_anio_4[cat] = round(min(5000, max(0, m * 2026 + b)), 2)
+
+    categorias = list(gasto_anio_1.keys())
+    x = list(range(len(categorias)))
+    width = 0.35
+
+    # === Gráfico real ===
+    fig1, ax1 = plt.subplots(figsize=(12, 7))
+    ax1.bar([i - width/2 for i in x], [gasto_anio_1[c] for c in categorias], width, label='2023', color='skyblue')
+    ax1.bar([i + width/2 for i in x], [gasto_anio_2[c] for c in categorias], width, label='2024', color='salmon')
+    ax1.set_xticks(x)
+    ax1.set_xticklabels(categorias, rotation=45, ha='right')
+    ax1.legend()
+    ax1.set_title('Gastos Anuales Reales')
+    ax1.set_ylabel('Gasto ($)')
+    ax1.set_xlabel('Categoría de Gasto')
     plt.tight_layout()
+    filename_real = f"plot_real_{random.randint(1000,9999)}.png"
+    filepath_real = os.path.join('static', 'img', filename_real)
+    plt.savefig(filepath_real)
+    plt.close(fig1)
 
-    img_buffer = io.BytesIO()
-    plt.savefig(img_buffer, format='png')
-    img_buffer.seek(0)
-    plt.close(fig)
+    # === Gráfico predicción ===
+    fig2, ax2 = plt.subplots(figsize=(12, 7))
+    ax2.bar([i - width/2 for i in x], [gasto_anio_3[c] for c in categorias], width, label='2025 (pred)', color='lightgreen', alpha=0.8)
+    ax2.bar([i + width/2 for i in x], [gasto_anio_4[c] for c in categorias], width, label='2026 (pred)', color='orange', alpha=0.8)
+    ax2.set_xticks(x)
+    ax2.set_xticklabels(categorias, rotation=45, ha='right')
+    ax2.legend()
+    ax2.set_title('Predicción de Gastos Anuales')
+    ax2.set_ylabel('Gasto ($)')
+    ax2.set_xlabel('Categoría de Gasto')
+    plt.tight_layout()
+    filename_pred = f"plot_pred_{random.randint(1000,9999)}.png"
+    filepath_pred = os.path.join('static', 'img', filename_pred)
+    plt.savefig(filepath_pred)
+    plt.close(fig2)
+
     
-    return img_buffer, None
+    return filename_real, filename_pred, None
 
-
-@app.route('/plot/gastos')
-def plot_gastos():
+@app.route('/fluctuacion')
+def mostrar_fluctuacion():
     view_type = request.args.get('type', 'anual')
-    category = request.args.get('category', None)
+    category = request.args.get('category')
+    year = request.args.get('year', '2023')
 
-    img_buffer, error = build_plot_image(view_type, category)
+    available_years = ['2023']
+    available_categories = ['Carne', 'Pescado', 'Vino', 'Frutas', 'Dulces', 'Oro']
+
+    filename_real, filename_pred, error = build_plot_image(view_type, category)
     if error:
         return error, 404
 
-    return Response(img_buffer.getvalue(), mimetype='image/png')
+    page_vars = {
+        **app_config,
+        'nav_links': links,
+        'app_section': 'Fluctuación',
+        'img_path_real': url_for('static', filename=f'img/{filename_real}'),
+        'img_path_pred': url_for('static', filename=f'img/{filename_pred}'),
+        'available_years': available_years,
+        'available_categories': available_categories,
+        'current_year': year,
+        'current_view_type': view_type
+    }
+
+    return render_template('pages/fluctuation.html', **page_vars)
 
 @app.route('/perfil-personal') 
 def perfil_personal():
@@ -252,15 +298,6 @@ def perfil_personal():
 @app.route('/calculator', methods=['GET', 'POST'])
 def calculator():
 
-    links = {
-        'LANDING' : '/landing',
-        'CARGAR DATA' : '/loadData',
-        'MERCADO' : '/market',
-        'ESTADISTICAS' : '/plot/gastos',
-        'CAMPAÑAS': '/grafico_campanias',
-        'PERSONAL' : '/perfil-personal',
-        'CALCULADORA' : '/calculator'
-        }
     page_vars = {
         **app_config,
         'nav_links' : links,
@@ -318,16 +355,53 @@ def calculator():
         page_vars["display_data"] = class_calculator()  
         
     return render_template('pages/calculator.html',**page_vars)
+
 @app.route('/view_data', methods=['GET'])
 def view_loaded_data():
-    data = Data_market.query.limit(500).all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 50
+
+    age_min = request.args.get('age_min', type=int)
+    age_max = request.args.get('age_max', type=int)
+    income_min = request.args.get('income_min', type=int)
+    income_max = request.args.get('income_max', type=int)
+    marital_status = request.args.get('marital_status')
+    education = request.args.get('education')
+
+    query = Data_market.query
+
+    if age_min is not None:
+        query = query.filter(Data_market.Age >= age_min)
+    if age_max is not None:
+        query = query.filter(Data_market.Age <= age_max)
+    if income_min is not None:
+        query = query.filter(Data_market.Income >= income_min)
+    if income_max is not None:
+        query = query.filter(Data_market.Income <= income_max)
+
+    if marital_status:
+        query = query.filter(getattr(Data_market, f"marital_{marital_status}") == 1)
+    if education:
+        query = query.filter(getattr(Data_market, f"education_{education}") == 1)
+
+    pagination = query.paginate(page=page, per_page=per_page)
+    data = pagination.items
 
     page_vars = {
         **app_config,
         'nav_links': links,
         'app_section': 'Ver Datos',
         'data': data,
-        'columns': [column.name for column in Data_market.__table__.columns]
+        'columns': [column.name for column in Data_market.__table__.columns],
+        'pagination': pagination,
+        'filters': {
+            'age_min': age_min,
+            'age_max': age_max,
+            'income_min': income_min,
+            'income_max': income_max,
+            'marital_status': marital_status,
+            'education': education
+        }
     }
 
     return render_template('pages/view_data.html', **page_vars)
