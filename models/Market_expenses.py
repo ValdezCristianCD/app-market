@@ -11,6 +11,7 @@ class Market_expenses(db.Model):
     MntFishProducts = db.Column(db.Integer)
     MntSweetProducts = db.Column(db.Integer)
     MntWines = db.Column(db.Integer)
+    MntGoldProds = db.Column(db.Integer)
 
     @classmethod
     def population_market_expenses(cls):

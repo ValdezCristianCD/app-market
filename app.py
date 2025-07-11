@@ -236,7 +236,7 @@ def perfil_personal():
     page_vars = {
         **app_config,
         'nav_links' : links,
-        'app_section' : 'Recurso no encontrado',
+        'app_section' : 'Perfil',
         'user_data' : {
             'nombre': 'Martín Pérez',
             'estado_civil': 'Soltero',
