@@ -1,5 +1,6 @@
 from flask import redirect, url_for, render_template, request, abort, Response
 from models.Market_expenses import Market_expenses
+from models.Data_market import Data_market
 from create_app import create_app, db
 import matplotlib
 matplotlib.use('Agg')
@@ -18,11 +19,13 @@ app_config = {
 }
 
 links = {
-    'PERSONAL' : '/perfil-personal',
-    'ESTADISTICAS' : '/plot/gastos',
     'LANDING' : '/landing',
     'CARGAR DATA' : '/loadData',
     'MERCADO' : '/market',
+    'ESTADISTICAS' : '/plot/gastos',
+    'CAMPAÑAS': '/grafico_campanias',
+    'PERSONAL' : '/perfil-personal',
+    'CALCULADORA' : '/calculator'
 }
 
 @app.route('/')
@@ -40,9 +43,28 @@ def landing():
 
     return render_template('pages/landing.html',**page_vars)
 
-@app.route('/loadData')
-def loadData():
+@app.route('/grafico_campanias')
+def grafico_campanias():
+    data = Market_expenses.create_all_campaigns_chart()
 
+    page_vars = {
+        **app_config,
+        'nav_links': links,
+        'app_section': 'Gráfico Campañas',
+        'data' : data
+    }
+
+    return render_template('pages/grafico_campanias.html', **page_vars)
+
+
+@app.route('/loadData', methods=['GET','POST'])
+def upload_market_csv():
+
+    file = request.files.get('csv_file')
+    if file:
+        Data_market.population_from_dataframe(file)
+        return redirect(url_for('view_loaded_data'))
+        
     page_vars = {
         **app_config,
         'nav_links' : links,
@@ -92,19 +114,22 @@ def market():
 def product_info():
 
     item1 = request.args.get('vid', 'Carne')
+    limit = request.args.get('limit', 10)
+
+    try:
+        response = Market_expenses.get_all_data_from_item(item1, limit)
+    except:
+        abort(404)
 
     page_vars = {
         **app_config,
         'nav_links' : links,
-        'app_section' : f'{item1}' 
+        'app_section' : f'{item1}',
+        'data' : response,
     }
 
-    try:
-        Market_expenses.get_all_data_from_item(item1)
-    except:
-        abort(404)
-
     return render_template('pages/product_info.html',**page_vars)
+
 
 
 def build_plot_image(view_type='anual', category=None):
@@ -190,7 +215,7 @@ def build_plot_image(view_type='anual', category=None):
     plt.savefig(img_buffer, format='png')
     img_buffer.seek(0)
     plt.close(fig)
-
+    
     return img_buffer, None
 
 
@@ -204,6 +229,109 @@ def plot_gastos():
         return error, 404
 
     return Response(img_buffer.getvalue(), mimetype='image/png')
+
+@app.route('/perfil-personal') 
+def perfil_personal():
+
+    page_vars = {
+        **app_config,
+        'nav_links' : links,
+        'app_section' : 'Recurso no encontrado',
+        'user_data' : {
+            'nombre': 'Martín Pérez',
+            'estado_civil': 'Soltero',
+            'nivel_educativo': 'Universitario',
+            'hijos_pequenos': 1,
+            'hijos_adolescentes': 0,
+            'ingresos': 250000.00 
+        }
+    }
+
+    return render_template('pages/personal.html', **page_vars)
+
+@app.route('/calculator', methods=['GET', 'POST'])
+def calculator():
+
+    links = {
+        'LANDING' : '/landing',
+        'CARGAR DATA' : '/loadData',
+        'MERCADO' : '/market',
+        'ESTADISTICAS' : '/plot/gastos',
+        'CAMPAÑAS': '/grafico_campanias',
+        'PERSONAL' : '/perfil-personal',
+        'CALCULADORA' : '/calculator'
+        }
+    page_vars = {
+        **app_config,
+        'nav_links' : links,
+        'app_section' : 'Calculadora de clases' 
+    }
+
+    if request.method == 'POST':
+        people = int(request.form.get("people"))
+        
+        income = int(request.form.get("income"))
+        print(income)
+        def class_calculator():
+            if 1 < income < 30000 and people == 1:
+                return "Usted pertenece a la Clase Baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 1 < income < 42000 and people == 2:
+                return "Usted pertenece a la Clase Baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 1 < income < 60000 and people == 4:
+                return "Usted pertenece a la Clase Baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 30000 < income < 40000 and people == 1:
+                return "Usted pertenece a la Clase Baja-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 42000 < income < 56000 and people == 2:
+                return "Usted pertenece a la Clase Baja-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 60000 < income < 80000 and people == 4:
+                return "Usted pertenece a la Clase Baja-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 40000 < income < 55000 and people == 1:
+                return "Usted pertenece a la Clase Media-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 56000 < income < 78000 and people == 2:
+                return "Usted pertenece a la Clase Media-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 80000 < income < 110000 and people == 4:
+                return "Usted pertenece a la Clase Media-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 55000 < income < 90000 and people == 1:
+                return "Usted pertenece a la Clase Media, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 78000 < income < 127000 and people == 2:
+                return "Usted pertenece a la Clase Media, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 110000 < income < 180000 and people == 4:
+                return "Usted pertenece a la Clase Media, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 90000 < income < 130000 and people == 1:
+                return "Usted pertenece a la Clase Media-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 127000 < income < 183000 and people == 2:
+                return "Usted pertenece a la Clase Media-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 260000 < income < 400000 and people == 4:
+                return "Usted pertenece a la Clase Media-alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 130000 < income < 200000 and people == 1:
+                return "Usted pertenece a la Clase Alta-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 183000 < income < 280000 and people == 2:
+                return "Usted pertenece a la Clase Alta-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if 260000 < income < 400000 and people == 4:
+                return "Usted pertenece a la Clase Alta-baja, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if income > 200000 and people == 1:
+                return "Usted pertenece a la Clase Alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if income > 280000 and people == 2:
+                return "Usted pertenece a la Clase Alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+            if income > 400000 and people == 4:
+                return "Usted pertenece a la Clase Alta, esto es solo un estimado teniendo en cuenta los datos ingresados sobre las personas en su hogar y sus ingresos."
+        page_vars["display_data"] = class_calculator()  
+        
+    return render_template('pages/calculator.html',**page_vars)
+@app.route('/view_data', methods=['GET'])
+def view_loaded_data():
+    data = Data_market.query.limit(500).all()
+
+    page_vars = {
+        **app_config,
+        'nav_links': links,
+        'app_section': 'Ver Datos',
+        'data': data,
+        'columns': [column.name for column in Data_market.__table__.columns]
+    }
+
+    return render_template('pages/view_data.html', **page_vars)
+
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -221,17 +349,6 @@ def page_not_found(e):
 
     return render_template('pages/error.html', **page_vars), 404
 
-@app.route('/perfil-personal') 
-def perfil_personal():
-    user_data = {
-        'nombre': 'Martín Pérez',
-        'estado_civil': 'Soltero',
-        'nivel_educativo': 'Universitario',
-        'hijos_pequenos': 1,
-        'hijos_adolescentes': 0,
-        'ingresos': 250000.00 
-    }
-    return render_template('pages/personal.html', user_data=user_data)
-
 if __name__ == '__main__':
     app.run(debug=True)
+

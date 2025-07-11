@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+}
+
+/* Contenedor general */
+.main-market {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* Sección de contenido */
+.main-section-desc {
+    padding: 30px 40px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 1000px;
+    width: 100%;
+}
+
+/* Título */
+.main-section-desc h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+}
+
+/* Imagen del gráfico */
+.img {
+    max-width: 100%;
+    height: 450px;
+    border-radius: 8px;
+}
+
+.h2 {
+    padding-right: 10px;
+}

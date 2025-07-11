@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 
 {% block body %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bla.css') }}">
+
     {% include "components/headerPage.html" %}
-    <main class="main-landing">
-        <section class="main-section-desc">
-            <img src="{{ url_for('static', filename='img/charts/mtn_unic_prod_chart.png') }}" alt="" class="landing-main-logo">
-            <div class="desc-container">
+    <main class="main-market">
+        <section class="main-section-desc fluctuation-section">
+            <img class="img" src="{{ url_for('static', filename='img/charts/campaigns_chart.png') }}" alt="Gráfico de campañas">
+            <div class="desc-container cpm_section">
                 <h1 class="desc-title">
-                    INFORMACION DETALLADA DE: {{ app_section.upper() }}
+                    ANALISIS DE LAS CAMPAÑAS
                 </h1>
                 <section class="desc-data">
                     {% for label, value in data.items() %}
@@ -18,4 +20,4 @@
             </div>
         </section>
     </main>
-{% endblock body%}
+{% endblock %}

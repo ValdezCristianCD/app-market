@@ -1,31 +1,53 @@
 {% extends "base.html" %}
 
-{% block head %}
-    {{ super() }} 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/personal.css') }}">
-{% endblock %}
-
-{% block title %}Mi Perfil Personal{% endblock %}
-
 {% block body %}
-<main class="page-content">
-    <div class="container mt-5">
-        <h1 class="mb-4">Perfil de Usuario</h1>
-
-        <div class="card">
-            <div class="card-header">
-                Información Personal
+    {% include "components/headerPage.html" %}
+    <main class="main-landing">
+        <section class="main-section-desc personal-desc">
+            <div class="personal-section">
+                <h1 class="personal-title">PERFIL DEL USUARIO</h1>
+                <div class="img-conteiner">
+                    <img src="{{ url_for('static', filename='img/user_logo.svg') }}" alt="" class="personal-user-logo">
+                </div>
             </div>
-            <div class="card-body">
-                <p><strong>Nombre:</strong> {{ user_data.nombre }}</p>
-                <p><strong>Estado Civil:</strong> {{ user_data.estado_civil }}</p>
-                <p><strong>Nivel Educativo:</strong> {{ user_data.nivel_educativo }}</p>
-                <p><strong>Hijos Pequeños:</strong> {{ user_data.hijos_pequenos }}</p>
-                <p><strong>Hijos Adolescentes:</strong> {{ user_data.hijos_adolescentes }}</p>
-                <p><strong>Ingresos:</strong> ${{ user_data.ingresos | format_currency }}</p> 
+            
+            <div class="card">
+                <div class="card-header">
+                    INFORMACION PERSONAL
+                </div>
+                <div class="card-body">
+                    <p class="card-body-group">
+                        <span class="card-body-item">
+                            Nombre:
+                        </span> {{ user_data.nombre }}
+                    </p>
+                    <p class="card-body-group">
+                        <span class="card-body-item">
+                            Estado Civil:
+                        </span> {{ user_data.estado_civil }}
+                    </p>
+                    <p class="card-body-group">
+                        <span class="card-body-item">
+                            Nivel Educativo:
+                        </span> {{ user_data.nivel_educativo }}
+                    </p>
+                    <p class="card-body-group">
+                        <span class="card-body-item">
+                            Hijos Pequeños:
+                        </span> {{ user_data.hijos_pequenos }}
+                    </p>
+                    <p class="card-body-group">
+                        <span class="card-body-item">
+                            Hijos Adolescentes:
+                        </span> {{ user_data.hijos_adolescentes }}
+                    </p>
+                    <p class="card-body-group">
+                        <span class="card-body-item">
+                            Ingresos:
+                        </span> ${{ user_data.ingresos }}
+                    </p> 
+                </div>
             </div>
-        </div>
-
-    </div>
-</main>
+        </section>
+    </main>
 {% endblock %}

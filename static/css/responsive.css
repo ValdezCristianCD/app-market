@@ -64,7 +64,7 @@ a.r-navbar-link:hover {
     width: 180px;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 780px) {
     nav.navbar {
         display: none;
     }
@@ -75,9 +75,14 @@ a.r-navbar-link:hover {
     section.main-section-desc {
         height: 32rem;
         width: 92%;
+        display: grid!important;
         grid-template-columns: 1fr;
         grid-template-rows: 60% 40%;
         margin: 2rem 0rem;
+        img {
+            margin: auto!important;
+            width: 100%!important;
+        }
     }
 
     img.landing-main-logo {
@@ -87,9 +92,54 @@ a.r-navbar-link:hover {
     div.desc-container {
         padding: 0rem 1rem 0rem 1rem;
     }
+    section.main-section-desc.personal-desc{
+        grid-template-rows: 20% 80%;
+    }
+    div.personal-section {
+        grid-template-rows: 100%;
+        grid-template-columns: 80% 20%;
+    }
+    div.card {
+        padding-left: 1rem;
+    }
+    section.main-section-desc.fluctuation-section{
+        height: 100%;
+        width: 100%;
+        display: flex!important;
+        flex-direction: column-reverse;
+        justify-content: start;
+        align-items: start;
+        padding: 0rem;
+        box-shadow: none;
+        padding-left: 1rem;
+        margin: 0;
+    }
+    div.chart-container {
+        width: 90%;
+        height: 270px;
+        
+        img#gastos-chart {
+            width: 90%!important;
+            height: 90%!important;
+            margin: 0!important;
+        }
+    }
+    .desc-container.cpm_section{
+        max-height: 25rem;
+    }
+    section.desc-data {
+        min-height: 6rem;
+        gap: 0.5rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    img.img {
+        max-height: 340px;
+        object-fit: contain;
+    }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 480px) {
 
     section.main-section-desc {
         height: 38rem;
@@ -101,6 +151,10 @@ a.r-navbar-link:hover {
             padding: 0rem;
         }
     }
+    section.main-section-upfile {
+        form.form-upload-file {
+            box-shadow: none;
+        }
+    }
     
-
 }

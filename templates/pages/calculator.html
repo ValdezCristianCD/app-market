@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block body %}
+    <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/calculator.css') }}">
+    </head>
+    
+    <header class="header-landing">
+        <!-- <div class="logo-container">
+            <img src="#" alt="" class="logo-img">
+        </div> -->
+        <span class="header-app-name">
+            {{ app_name.upper() }}
+        </span>
+        {% include "components/navbar.html" %}
+    </header>
+    <div class="title">
+        <h1>Calculadora</h1>
+    </div>
+    <div class="questions">
+        <form method="POST" action="/calculator">
+            <label class="label">¿Cuántas personas hay en el hogar?</label>
+            <select name="people" required> 
+                <option value="1">1</option> 
+                <option value="2">2</option>
+                <option value="4">4</option> 
+            </select>
+
+            <label class="label">¿Cuánto ingresa en el hogar?</label>
+            <input name="income" min="1" max="4000000" type="number" required>
+
+            <input type="submit" value="Calcular"> 
+        </form>
+    </div>
+    <div class="calculator">
+        <div class="response_container">
+        {% if display_data %}
+            <div class="response">
+                <h1>{{ display_data }}</h1>
+            </div>
+        {% endif %}
+    </div>
+    <div class="keypad_container">
+        <div z-index class="keypad">
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button> 
+            <button></button>
+            <button></button>
+            <button></button>
+        </div>
+    
+        <div class="keypad_2">
+            <button></button>
+         </div>
+        </div>
+    </div>
+    </div>
+        
+{% endblock body%}
